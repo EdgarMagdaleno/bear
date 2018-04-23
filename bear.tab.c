@@ -65,17 +65,26 @@
 #line 1 "bear.y" /* yacc.c:339  */
 
 
+#define C_RED     "\033[1;31m"
+#define C_GREEN   "\x1b[32m"
+#define C_YELLOW  "\x1b[33m"
+#define C_BLUE    "\x1b[34m"
+#define C_MAGENTA "\x1b[35m"
+#define C_CYAN    "\x1b[36m"
+#define C_RST   	"\x1b[0m"
+
 #include <stdio.h>
+#include <stdlib.h>
 
 extern int yylex();
 extern int yyparse();
 extern FILE* yyin;
 
-void yyerror(const char* s);
-void exit(int exit_code);
+void error_log(const char *);
+void yyerror(const char *);
 
 
-#line 79 "bear.tab.c" /* yacc.c:339  */
+#line 88 "bear.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -121,13 +130,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "bear.y" /* yacc.c:355  */
+#line 23 "bear.y" /* yacc.c:355  */
 
 	int ival;
 	float fval;
 	char *sval;
 
-#line 131 "bear.tab.c" /* yacc.c:355  */
+#line 140 "bear.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -144,7 +153,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 148 "bear.tab.c" /* yacc.c:358  */
+#line 157 "bear.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -384,9 +393,9 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  8
+#define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   6
+#define YYLAST   8
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  6
@@ -442,7 +451,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    27,    27,    28,    29,    30,    31,    32
+       0,    36,    36,    37,    38,    39,    40,    41
 };
 #endif
 
@@ -465,10 +474,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -4
+#define YYPACT_NINF -1
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-4)))
+  (!!((Yystate) == (-1)))
 
 #define YYTABLE_NINF -1
 
@@ -479,7 +488,7 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -3,    -3,    -3,    -3,     6,    -4,    -4,    -4,    -4
+       3,    -1,    -1,    -1,     0,    -1,    -1,    -1,    -1
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -487,13 +496,13 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     5,     6,     7,     0,     2,     3,     4,     1
+       0,     5,     6,     7,     0,     1,     2,     3,     4
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -4,     2
+      -1,    -1
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -507,19 +516,19 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       1,     2,     3,     5,     6,     7,     8
+       5,     0,     0,     6,     7,     8,     1,     2,     3
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       3,     4,     5,     1,     2,     3,     0
+       0,    -1,    -1,     3,     4,     5,     3,     4,     5
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,     4,     5,     7,     7,     7,     7,     0
+       0,     3,     4,     5,     7,     0,     3,     4,     5
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
@@ -1208,43 +1217,43 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 27 "bear.y" /* yacc.c:1646  */
-    { printf("bison found an int: %s\n", (yyvsp[-1].ival)); }
-#line 1214 "bear.tab.c" /* yacc.c:1646  */
+#line 36 "bear.y" /* yacc.c:1646  */
+    { printf("bison found an int: %i\n", (yyvsp[0].ival)); }
+#line 1223 "bear.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 28 "bear.y" /* yacc.c:1646  */
-    { printf("bison found a float: %s\n", (yyvsp[-1].fval)); }
-#line 1220 "bear.tab.c" /* yacc.c:1646  */
+#line 37 "bear.y" /* yacc.c:1646  */
+    { printf("bison found a float: %f\n", (yyvsp[0].fval)); }
+#line 1229 "bear.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 29 "bear.y" /* yacc.c:1646  */
-    { printf("bison found a string: %s\n", (yyvsp[-1].sval)); }
-#line 1226 "bear.tab.c" /* yacc.c:1646  */
+#line 38 "bear.y" /* yacc.c:1646  */
+    { printf("bison found a string: %s\n", (yyvsp[0].sval)); }
+#line 1235 "bear.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 30 "bear.y" /* yacc.c:1646  */
-    { printf("bison found an int: %s\n", (yyvsp[0].ival)); }
-#line 1232 "bear.tab.c" /* yacc.c:1646  */
+#line 39 "bear.y" /* yacc.c:1646  */
+    { printf("bison found an int: %i\n", (yyvsp[0].ival));}
+#line 1241 "bear.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 31 "bear.y" /* yacc.c:1646  */
-    { printf("bison found a float: %s\n", (yyvsp[0].fval)); }
-#line 1238 "bear.tab.c" /* yacc.c:1646  */
+#line 40 "bear.y" /* yacc.c:1646  */
+    { printf("bison found a float: %f\n", (yyvsp[0].fval));}
+#line 1247 "bear.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 32 "bear.y" /* yacc.c:1646  */
-    { printf("bison found a string: %s\n", (yyvsp[0].sval)); }
-#line 1244 "bear.tab.c" /* yacc.c:1646  */
+#line 41 "bear.y" /* yacc.c:1646  */
+    { printf("bison found a string: %s\n", (yyvsp[0].sval));}
+#line 1253 "bear.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1248 "bear.tab.c" /* yacc.c:1646  */
+#line 1257 "bear.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1472,13 +1481,18 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 35 "bear.y" /* yacc.c:1906  */
+#line 44 "bear.y" /* yacc.c:1906  */
 
 
 int main(int argc, char **argv) {
+	if(!argv[1]) {
+		error_log("Input file not provided");
+		return -1;
+	}
+
 	FILE *input_file = fopen(argv[1], "r");
 	if(!input_file) {
-		printf("[ERROR] File \"%s\" could not be opened\n", argv[1]);
+		printf(C_RED"[ERROR]"C_RST" File "C_BLUE"%s"C_RST" could not be opened\n", argv[1]);
 		return -1;
 	}
 	yyin = input_file;
@@ -1488,7 +1502,10 @@ int main(int argc, char **argv) {
 	} while (!feof(yyin));
 }
 
-void yyerror(const char *s) {
-	printf("Error: %s", s);
-	exit(-1);
+void error_log(const char *message) {
+	printf(C_RED"[ERROR]"C_RST" %s\n", message);
+}
+
+void yyerror(const char *message) {
+	printf(C_RED"[ERROR]"C_RST" %s\n", message);
 }

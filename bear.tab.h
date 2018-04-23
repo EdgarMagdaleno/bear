@@ -56,7 +56,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "bear.y" /* yacc.c:1909  */
+#line 23 "bear.y" /* yacc.c:1909  */
 
 	int ival;
 	float fval;
