@@ -46,35 +46,33 @@ extern int yydebug;
   enum yytokentype
   {
     CN_INT = 258,
-    CN_FLOAT = 259,
+    CN_FLT = 259,
     CN_ID = 260,
     KW_INT = 261,
-    KW_FLOAT = 262,
-    OP_CMP = 263,
-    OP_ASG = 264,
-    OP_ADD = 265,
-    OP_SUB = 266,
-    OP_MUL = 267,
-    OP_DIV = 268,
-    EOS = 269
+    KW_FLT = 262,
+    KW_IF = 263,
+    KW_WHL = 264,
+    KW_STR = 265,
+    OP_EQ = 266,
+    OP_NEQ = 267,
+    OP_GEQ = 268,
+    OP_LEQ = 269,
+    OP_GTR = 270,
+    OP_LSR = 271,
+    OP_ASG = 272,
+    OP_ADD = 273,
+    OP_SUB = 274,
+    OP_MUL = 275,
+    OP_DIV = 276,
+    AR_OPR = 277,
+    AR_CPR = 278,
+    EOS = 279
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
-union YYSTYPE
-{
-#line 21 "bear.y" /* yacc.c:1909  */
-
-	int integer_value;
-	float float_value;
-	char *string_value;
-
-#line 75 "bear.tab.h" /* yacc.c:1909  */
-};
-
-typedef union YYSTYPE YYSTYPE;
+typedef int YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
