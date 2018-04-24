@@ -1,11 +1,8 @@
 %{
 
 #define C_RED     "\033[1;31m"
-#define C_GREEN   "\x1b[32m"
-#define C_YELLOW  "\x1b[33m"
-#define C_BLUE    "\x1b[34m"
-#define C_MAGENTA "\x1b[35m"
-#define C_CYAN    "\x1b[36m"
+#define C_GREEN   "\033[32;1m"
+#define C_BLUE    "\033[1;34m"
 #define C_RST   	"\x1b[0m"
 
 #include <stdio.h>
@@ -14,6 +11,7 @@
 extern int yylex();
 extern int yyparse();
 extern FILE* yyin;
+extern int line_number;
 
 void error_log(const char *);
 void yyerror(const char *);
@@ -21,26 +19,38 @@ void yyerror(const char *);
 %}
 
 %union {
-	int ival;
-	float fval;
-	char *sval;
+	int integer_value;
+	float float_value;
+	char *string_value;
 }
 
-%token <ival> INT
-%token <fval> FLOAT
-%token <sval> STRING
+// constants
+%token <integer_value> CN_INT
+%token <float_value> CN_FLOAT
+%token <string_value> CN_ID
+
+// keywords
+%token KW_INT
+%token KW_FLOAT
+
+// operators
+%token OP_CMP;
+%token OP_ASG;
+%token OP_ADD;
+%token OP_SUB;
+%token OP_MUL;
+%token OP_DIV;
+
+// end of statement
+%token EOS;
+
+%start program
 
 %%
 
-snazzle:
-	snazzle INT { printf("bison found an int: %i\n", $2); }
-	| snazzle FLOAT { printf("bison found a float: %f\n", $2); }
-	| snazzle STRING { printf("bison found a string: %s\n", $2); } 
-	| INT { printf("bison found an int: %i\n", $1);}
-	| FLOAT { printf("bison found a float: %f\n", $1);}
-	| STRING { printf("bison found a string: %s\n", $1);}
+program:
+	KW_INT CN_ID OP_ASG CN_INT EOS
 	;
-
 %%
 
 int main(int argc, char **argv) {
@@ -59,6 +69,8 @@ int main(int argc, char **argv) {
 	do {
 		yyparse();
 	} while (!feof(yyin));
+	printf(C_GREEN"[SUCCESS]"C_RST" Parsing completed succesfully\n");
+	return 0;
 }
 
 void error_log(const char *message) {
@@ -66,5 +78,5 @@ void error_log(const char *message) {
 }
 
 void yyerror(const char *message) {
-	printf(C_RED"[ERROR]"C_RST" %s\n", message);
+	printf(C_RED"[ERROR]"C_RST" %s on line number "C_BLUE"%i"C_RST"\n", message, line_number);
 }

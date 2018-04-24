@@ -45,9 +45,18 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INT = 258,
-    FLOAT = 259,
-    STRING = 260
+    CN_INT = 258,
+    CN_FLOAT = 259,
+    CN_ID = 260,
+    KW_INT = 261,
+    KW_FLOAT = 262,
+    OP_CMP = 263,
+    OP_ASG = 264,
+    OP_ADD = 265,
+    OP_SUB = 266,
+    OP_MUL = 267,
+    OP_DIV = 268,
+    EOS = 269
   };
 #endif
 
@@ -56,13 +65,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 23 "bear.y" /* yacc.c:1909  */
+#line 21 "bear.y" /* yacc.c:1909  */
 
-	int ival;
-	float fval;
-	char *sval;
+	int integer_value;
+	float float_value;
+	char *string_value;
 
-#line 66 "bear.tab.h" /* yacc.c:1909  */
+#line 75 "bear.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
