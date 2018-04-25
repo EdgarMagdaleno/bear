@@ -69,7 +69,7 @@ program
 	:	%empty
 	| stmnt SX_EOS
 	| program stmnt SX_EOS
-	| error
+	| program error SX_EOS
 	;
 
 type
