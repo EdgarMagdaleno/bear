@@ -1,3 +1,5 @@
+L			[a-zA-Z_]
+
 %{
 
 #include <stdio.h>
@@ -13,6 +15,7 @@ int line_number = 1;
 "."											return SX_PNT;
 ","											return SX_CMA;
 ":"											return SX_CLN;
+"[]"										return SX_ARR;
 "func"									return KW_FNC;
 "out"										return KW_OUT;
 "else if"								return KW_EIF;
@@ -22,6 +25,8 @@ int line_number = 1;
 "int"										return KW_INT;
 "float"									return KW_FLT;
 "string"								return KW_STR;
+"for"										return KW_FOR;
+L?\"(\\.|[^\\"\n])*\"   return CN_STR;
 "=="										return OP_EQ;
 "!="										return OP_NEQ;
 ">="										return OP_GEQ;

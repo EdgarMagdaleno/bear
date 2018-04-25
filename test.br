@@ -1,8 +1,10 @@
 float a = 1.3;
 int b = 4 + 3;
 
-float c = 4 + b / (b + a / (4) * 1) > 4;
+string b = "hola!";
 
+float c = 4 + b / (b + a / (4) * 1) > 4;
+ 
 if a < 4:
 	int g = 4;
 	float s = 4;;
@@ -18,9 +20,17 @@ else:
 	
 ;
 
+for int a = 1; a <= 10; a = a + 1:
+	b = b + 1;
+;
+
 float(int a, float b) foo:
 	if 1 < 2:
 		if a == 4:
-			out 4;;
-		out 3;;
-	out 0;;
+			out 4;
+		;
+
+		out 3;
+	;
+	out 0;
+;

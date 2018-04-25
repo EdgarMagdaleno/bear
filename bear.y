@@ -31,16 +31,19 @@ void yyerror(const char *);
 %token SX_CMA
 %token SX_OPR;
 %token SX_CPR;
+%token SX_ARR
 
 // constants
 %token CN_INT
 %token CN_FLT
 %token CN_ID
+%token CN_STR
 
 // keywords
 %token KW_INT
 %token KW_FLT
 %token KW_IF
+%token KW_FOR
 %token KW_EIF
 %token KW_ELS
 %token KW_WHL
@@ -69,12 +72,12 @@ program
 	:	%empty
 	| stmnt SX_EOS
 	| program stmnt SX_EOS
-	| program error SX_EOS
 	;
 
 type
 	:	KW_INT
 	| KW_FLT
+	| KW_STR
 	;
 
 out
@@ -88,6 +91,7 @@ stmnt
 	| if
 	| while
 	| out
+	| for
 	;
 
 dec
@@ -130,6 +134,7 @@ exp
 	: CN_INT
 	| CN_FLT
 	| CN_ID
+	| CN_STR
 	| SX_OPR exp SX_CPR
 	| exp OP_ADD exp
 	| exp OP_SUB exp
@@ -165,6 +170,10 @@ else
 
 while
 	: KW_WHL exp SX_CLN program
+	;
+
+for
+	:	KW_FOR dec asgn SX_EOS exp SX_EOS mod SX_CLN program
 	;
 
 %%
