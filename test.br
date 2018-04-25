@@ -15,10 +15,10 @@ if a < 4:
 		b = 2;
 	;
 else:
-
+	
 ;
 
-int(float a, int b) foo:
+float(int a, float b) foo:
 	if 1 < 2:
 		if a == 4:
 			out 4;;

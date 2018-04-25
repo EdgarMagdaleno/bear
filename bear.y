@@ -15,6 +15,8 @@ extern int		yyparse();
 extern FILE*	yyin;
 extern int		line_number;
 
+char found_error = 0;
+
 void success_log(const char *, ...);
 void warning_log(const char *, ...);
 void error_log(const char *, ...);
@@ -65,64 +67,59 @@ void yyerror(const char *);
 
 program
 	:	%empty
-	| stmnt
-	| program stmnt
-	| out
-	| program out
+	| stmnt SX_EOS
+	| program stmnt SX_EOS
+	| error
+	;
+
+type
+	:	KW_INT
+	| KW_FLT
 	;
 
 out
-	:	KW_OUT exp SX_EOS
+	:	KW_OUT exp
 	;
 
 stmnt
-	: dec		SX_EOS
-	| asgn	SX_EOS
-	| mod		SX_EOS
-	| if		SX_EOS
-	| while	SX_EOS
+	: dec 
+	| asgn
+	| mod
+	| if
+	| while
+	| out
 	;
 
 dec
-	: int_dec
-	|	float_dec
+	: type CN_ID
 	;
 
 asgn
-	: prim_dec prim_asgn
+	: dec asgn
 	| func_dec func_asgn
 	;
 
-int_dec
-	:	KW_INT CN_ID
-	;
-
-float_dec
-	:	KW_FLT CN_ID
-	;
-
-prim_dec
-	:	int_dec
-	| float_dec
-	;
-
-prim_asgn
+asgn
 	: OP_ASG exp
 	;
 
 func_dec
-	: prim_dec
-	|	KW_INT SX_OPR arg_dec SX_CPR CN_ID
-	;
-
-arg_dec
-	:	%empty
-	| dec
-	| dec SX_CMA arg_dec
+	: dec
+	|	type arg_dec CN_ID
 	;
 
 func_asgn
 	: SX_CLN program
+	;
+
+arg_dec
+	:	SX_OPR arg_list SX_CPR
+	;
+
+arg_list
+	:	%empty
+	| dec
+	| dec SX_CMA arg_list
 	;
 
 mod
@@ -130,10 +127,10 @@ mod
 	;
 
 exp
-  : CN_INT
-  | CN_FLT
-  | CN_ID
-  | SX_OPR exp SX_CPR
+	: CN_INT
+	| CN_FLT
+	| CN_ID
+	| SX_OPR exp SX_CPR
 	| exp OP_ADD exp
 	| exp OP_SUB exp
 	| exp OP_MUL exp
@@ -188,7 +185,11 @@ int main(int argc, char **argv) {
 	do {
 		yyparse();
 	} while (!feof(yyin));
-	success_log("Parsing completed succesfully");
+
+	if(!found_error) {
+		success_log("Parsing completed succesfully");
+	}
+
 	return 0;
 }
 
@@ -220,6 +221,6 @@ void error_log(const char *message, ...) {
 }
 
 void yyerror(const char *message) {
+	found_error = 1;
 	error_log("%s on line number "C_BLU"%i"C_RST, message, line_number);
-	exit(-1);
 };
