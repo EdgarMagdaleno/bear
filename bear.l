@@ -1,10 +1,3 @@
-D			[0-9]
-L			[a-zA-Z_]
-H			[a-fA-F0-9]
-E			[Ee][+-]?{D}+
-FS		(f|F|l|L)
-IS		(u|U|l|L)*
-
 %{
 
 #include <stdio.h>
@@ -16,8 +9,15 @@ int line_number = 1;
 
 %%
 
-";"											return EOS;
+";"											return SX_EOS;
+"."											return SX_PNT;
+","											return SX_CMA;
+":"											return SX_CLN;
+"func"									return KW_FNC;
+"out"										return KW_OUT;
+"else if"								return KW_EIF;
 "if"										return KW_IF;
+"else"									return KW_ELS;
 "while"									return KW_WHL;
 "int"										return KW_INT;
 "float"									return KW_FLT;
@@ -33,8 +33,8 @@ int line_number = 1;
 "*"											return OP_MUL;
 "/"											return OP_DIV;
 "="											return OP_ASG;
-"("											return AR_OPR;
-")"											return AR_CPR;
+"("											return SX_OPR;
+")"											return SX_CPR;
 [0-9]+\.[0-9]+  				return CN_FLT;
 [0-9]+          				return CN_INT;
 [_a-zA-Z][_a-zA-Z0-9]*	return CN_ID;

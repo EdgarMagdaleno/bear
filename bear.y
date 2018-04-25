@@ -1,10 +1,10 @@
 %{
 
-#define C_RED     "\e[1;31m"
-#define C_GREEN   "\e[1;32m"
-#define C_BLUE    "\e[1;34m"
-#define C_YELLOW	"\e[1;33m"
-#define C_RST   	"\e[0m"
+#define C_RED	"\e[1;31m"
+#define C_GRN	"\e[1;32m"
+#define C_BLU	"\e[1;34m"
+#define C_YLW	"\e[1;33m"
+#define C_RST "\e[0m"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,6 +22,14 @@ void yyerror(const char *);
 
 %}
 
+// syntax
+%token SX_EOS
+%token SX_PNT
+%token SX_CLN
+%token SX_CMA
+%token SX_OPR;
+%token SX_CPR;
+
 // constants
 %token CN_INT
 %token CN_FLT
@@ -31,8 +39,12 @@ void yyerror(const char *);
 %token KW_INT
 %token KW_FLT
 %token KW_IF
+%token KW_EIF
+%token KW_ELS
 %token KW_WHL
 %token KW_STR
+%token KW_FNC
+%token KW_OUT
 
 // operators
 %token OP_EQ;
@@ -47,67 +59,116 @@ void yyerror(const char *);
 %token OP_MUL;
 %token OP_DIV;
 
-// arithmetic
-%token AR_OPR;
-%token AR_CPR;
-
-// end of statement
-%token EOS;
-
 %start program
 
 %%
 
 program
 	:	%empty
-	| statement
-	| program statement
+	| stmnt
+	| program stmnt
+	| out
+	| program out
 	;
 
-statement
-	: assigment expression EOS
-	| if EOS
-	| while EOS
+out
+	:	KW_OUT exp SX_EOS
 	;
 
-assigment
-	: int_assigment
-	| float_assigment
+stmnt
+	: dec		SX_EOS
+	| asgn	SX_EOS
+	| mod		SX_EOS
+	| if		SX_EOS
+	| while	SX_EOS
 	;
 
-int_assigment
-	: KW_INT CN_ID OP_ASG
+dec
+	: int_dec
+	|	float_dec
 	;
 
-float_assigment
-	: KW_FLT CN_ID OP_ASG
+asgn
+	: prim_dec prim_asgn
+	| func_dec func_asgn
 	;
 
-expression
+int_dec
+	:	KW_INT CN_ID
+	;
+
+float_dec
+	:	KW_FLT CN_ID
+	;
+
+prim_dec
+	:	int_dec
+	| float_dec
+	;
+
+prim_asgn
+	: OP_ASG exp
+	;
+
+func_dec
+	: prim_dec
+	|	KW_INT SX_OPR arg_dec SX_CPR CN_ID
+	;
+
+arg_dec
+	:	%empty
+	| dec
+	| dec SX_CMA arg_dec
+	;
+
+func_asgn
+	: SX_CLN program
+	;
+
+mod
+	: CN_ID OP_ASG exp
+	;
+
+exp
   : CN_INT
   | CN_FLT
   | CN_ID
-  | AR_OPR expression AR_CPR
-	| expression OP_ADD expression
-	| expression OP_SUB expression
-	| expression OP_MUL expression
-	| expression OP_DIV expression
-	| expression OP_EQ expression
-	| expression OP_NEQ expression
-	| expression OP_GEQ expression
-	| expression OP_LEQ expression
-	| expression OP_GTR expression
-	| expression OP_LSR expression
+  | SX_OPR exp SX_CPR
+	| exp OP_ADD exp
+	| exp OP_SUB exp
+	| exp OP_MUL exp
+	| exp OP_DIV exp
+	| exp OP_EQ exp
+	| exp OP_NEQ exp
+	| exp OP_GEQ exp
+	| exp OP_LEQ exp
+	| exp OP_GTR exp
+	| exp OP_LSR exp
 	;	
 
 if
-	: KW_IF expression EOS program
+	: if_single
+	| if_single eif_list
+	| if_single eif_list else
+	| if_single else
+	;
+
+if_single
+	:	KW_IF exp SX_CLN program
+	;
+
+eif_list
+	:	KW_EIF exp SX_CLN program
+	| KW_EIF exp SX_CLN program eif_list
+	;
+
+else
+	:	KW_ELS SX_CLN program
 	;
 
 while
-	: KW_WHL expression EOS program
+	: KW_WHL exp SX_CLN program
 	;
-
 
 %%
 
@@ -119,7 +180,7 @@ int main(int argc, char **argv) {
 
 	FILE *input_file = fopen(argv[1], "r");
 	if(!input_file) {
-		error_log("File "C_BLUE"%s"C_RST" could not be opened", argv[1]);
+		error_log("File "C_BLU"%s"C_RST" could not be opened", argv[1]);
 		return -1;
 	}
 	yyin = input_file;
@@ -133,7 +194,7 @@ int main(int argc, char **argv) {
 
 void success_log(const char *message, ...) {
 	va_list arglist;
-	printf(C_GREEN"[SUCCESS]"C_RST" ");
+	printf(C_GRN"[SUCCESS]"C_RST" ");
 	va_start(arglist, message);
 	vprintf(message, arglist);
 	va_end(arglist);
@@ -142,7 +203,7 @@ void success_log(const char *message, ...) {
 
 void warning_log(const char *message, ...) {
 	va_list arglist;
-	printf(C_YELLOW"[WARNING]"C_RST" ");
+	printf(C_YLW"[WARNING]"C_RST" ");
 	va_start(arglist, message);
 	vprintf(message, arglist);
 	va_end(arglist);
@@ -159,6 +220,6 @@ void error_log(const char *message, ...) {
 }
 
 void yyerror(const char *message) {
-	error_log("%s on line number "C_BLUE"%i"C_RST, message, line_number);
+	error_log("%s on line number "C_BLU"%i"C_RST, message, line_number);
 	exit(-1);
 };

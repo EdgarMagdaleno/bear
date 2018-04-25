@@ -1,12 +1,26 @@
-int a = 5 - 4;
-float b = (5.5 == (5.4 + 1 / (2 + (3))));
+float a = 1.3;
+int b = 4 + 3;
 
-if a < b;
-	int a = 4;
+float c = 4 + b / (b + a / (4) * 1) > 4;
+
+if a < 4:
+	int g = 4;
+	float s = 4;;
+
+while b < 100:
+	b = b + 1;;
+
+if a < 4:
+	if b == 2:
+		b = 2;
+	;
+else:
+
 ;
 
-while (5.5 == (5.4 + 1 / (2 + (3))));
-	int s = 2;
-;
-
-
+int(float a, int b) foo:
+	if 1 < 2:
+		if a == 4:
+			out 4;;
+		out 3;;
+	out 0;;
