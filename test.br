@@ -4,7 +4,11 @@ ent b = 4 + 3;
 pal b = "hola!";
 
 flot c = 4 + b / (b + a / (4) * 1) > 4;
- 
+
+!"hola!";
+
+ent b = ?;
+
 si a < 4:
 	ent g = 4;
 	flot s;
@@ -14,8 +18,8 @@ mients b < 100:
 	b = b + 1;
 ;
 
-sasdaslasi a < 4:
-	sasdasdi b == 2:
+si a < 4:
+	si b == 2:
 		b + 2;
 	;
 ;

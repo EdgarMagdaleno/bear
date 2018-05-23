@@ -11,6 +11,8 @@ int line_number = 1;
 
 %%
 
+"?"											return SX_INP;
+"!"											return SX_OTP;	
 ";"											return SX_EOS;
 ","											return SX_CMA;
 ":"											return SX_CLN;

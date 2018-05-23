@@ -29,9 +29,10 @@ void yyerror(const char *);
 %token SX_PNT
 %token SX_CLN
 %token SX_CMA
-%token SX_OPR;
-%token SX_CPR;
-%token SX_ARR
+%token SX_OPR
+%token SX_CPR
+%token SX_INP
+%token SX_OTP
 
 // constants
 %token CN_INT
@@ -53,16 +54,16 @@ void yyerror(const char *);
 
 // operators
 %token OP_EQ;
-%token OP_NEQ;
-%token OP_GEQ;
-%token OP_LEQ;
-%token OP_GTR;
-%token OP_LSR;
-%token OP_ASG;
-%token OP_ADD;
-%token OP_SUB;
-%token OP_MUL;
-%token OP_DIV;
+%token OP_NEQ
+%token OP_GEQ
+%token OP_LEQ
+%token OP_GTR
+%token OP_LSR
+%token OP_ASG
+%token OP_ADD
+%token OP_SUB
+%token OP_MUL
+%token OP_DIV
 %error-verbose
 %start program
 
@@ -92,6 +93,12 @@ stmnt
 	| while
 	| out
 	| for
+	| input
+	| output
+	;
+
+input
+	:	SX_INP CN_STR
 	;
 
 dec
@@ -135,6 +142,7 @@ exp
 	| CN_FLT
 	| CN_ID
 	| CN_STR
+	| SX_OTP
 	| SX_OPR exp SX_CPR
 	| exp OP_ADD exp
 	| exp OP_SUB exp
