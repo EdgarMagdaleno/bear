@@ -63,16 +63,16 @@ void yyerror(const char *);
 %token OP_SUB;
 %token OP_MUL;
 %token OP_DIV;
-
+%error-verbose
 %start program
 
 %%
 
 program
-	:	%empty
-	| stmnt SX_EOS
-	| program stmnt SX_EOS
-	;
+  : stmnt SX_EOS program
+  | stmnt SX_EOS
+  | stmnt error SX_EOS program
+  ;
 
 type
 	:	KW_INT

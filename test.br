@@ -1,32 +1,32 @@
-float a = 1.3;
-int b = 4 + 3;
+flot a = 1.3;
+ent b = 4 + 3;
 
-string b = "hola!";
+pal b = "hola!";
 
-float c = 4 + b / (b + a / (4) * 1) > 4;
+flot c = 4 + b / (b + a / (4) * 1) > 4;
  
-if a < 4:
-	int g = 4;
-	float s = 4;;
-
-while b < 100:
-	b = b + 1;;
-
-if a < 4:
-	if b == 2:
-		b = 2;
-	;
-else:
-	
+si a < 4:
+	ent g = 4;
+	flot s;
 ;
 
-for int a = 1; a <= 10; a = a + 1:
+mients b < 100:
 	b = b + 1;
 ;
 
-float(int a, float b) foo:
-	if 1 < 2:
-		if a == 4:
+sasdaslasi a < 4:
+	sasdasdi b == 2:
+		b + 2;
+	;
+;
+
+para ent a = 1; a <= 10; a = a + 1:
+	b = b + 1;
+;
+
+flot(ent a, flot b) foo:
+	si 1 < 2:
+		si a == 4:
 			out 4;
 		;
 

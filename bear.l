@@ -12,20 +12,19 @@ int line_number = 1;
 %%
 
 ";"											return SX_EOS;
-"."											return SX_PNT;
 ","											return SX_CMA;
 ":"											return SX_CLN;
 "[]"										return SX_ARR;
 "func"									return KW_FNC;
 "out"										return KW_OUT;
-"else if"								return KW_EIF;
-"if"										return KW_IF;
-"else"									return KW_ELS;
-"while"									return KW_WHL;
-"int"										return KW_INT;
-"float"									return KW_FLT;
-"string"								return KW_STR;
-"for"										return KW_FOR;
+"no si"									return KW_EIF;
+"si"										return KW_IF;
+"no"										return KW_ELS;
+"mient"									return KW_WHL;
+"ent"										return KW_INT;
+"flot"									return KW_FLT;
+"pal"										return KW_STR;
+"para"									return KW_FOR;
 L?\"(\\.|[^\\"\n])*\"   return CN_STR;
 "=="										return OP_EQ;
 "!="										return OP_NEQ;
