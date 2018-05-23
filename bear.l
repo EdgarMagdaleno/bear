@@ -16,7 +16,6 @@ int line_number = 1;
 ";"											return SX_EOS;
 ","											return SX_CMA;
 ":"											return SX_CLN;
-"[]"										return SX_ARR;
 "func"									return KW_FNC;
 "out"										return KW_OUT;
 "no si"									return KW_EIF;

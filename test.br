@@ -14,13 +14,13 @@ si a < 4:
 	flot s;
 ;
 
-mients b < 100:
+mient b < 100:
 	b = b + 1;
 ;
 
 si a < 4:
 	si b == 2:
-		b + 2;
+		b = 2;
 	;
 ;
 

@@ -1,20 +1,19 @@
 Terminals unused in grammar
 
    SX_PNT
-   SX_ARR
    KW_FNC
 
 
-State 74 conflicts: 10 shift/reduce
-State 75 conflicts: 10 shift/reduce
-State 76 conflicts: 10 shift/reduce
-State 77 conflicts: 10 shift/reduce
 State 78 conflicts: 10 shift/reduce
 State 79 conflicts: 10 shift/reduce
 State 80 conflicts: 10 shift/reduce
 State 81 conflicts: 10 shift/reduce
 State 82 conflicts: 10 shift/reduce
 State 83 conflicts: 10 shift/reduce
+State 84 conflicts: 10 shift/reduce
+State 85 conflicts: 10 shift/reduce
+State 86 conflicts: 10 shift/reduce
+State 87 conflicts: 10 shift/reduce
 
 
 Grammar
@@ -38,1264 +37,1216 @@ Grammar
    12      | while
    13      | out
    14      | for
+   15      | output
 
-   15 dec: type CN_ID
+   16 output: SX_OTP CN_STR
 
-   16 asgn: dec asgn
-   17     | func_dec func_asgn
-   18     | OP_ASG exp
+   17 dec: type CN_ID
 
-   19 func_dec: dec
-   20         | type arg_dec CN_ID
+   18 asgn: dec asgn
+   19     | func_dec func_asgn
+   20     | OP_ASG exp
 
-   21 func_asgn: SX_CLN program
+   21 func_dec: dec
+   22         | type arg_dec CN_ID
 
-   22 arg_dec: SX_OPR arg_list SX_CPR
+   23 func_asgn: SX_CLN program
 
-   23 arg_list: %empty
-   24         | dec
-   25         | dec SX_CMA arg_list
+   24 arg_dec: SX_OPR arg_list SX_CPR
 
-   26 mod: CN_ID OP_ASG exp
+   25 arg_list: %empty
+   26         | dec
+   27         | dec SX_CMA arg_list
 
-   27 exp: CN_INT
-   28    | CN_FLT
-   29    | CN_ID
-   30    | CN_STR
-   31    | SX_OPR exp SX_CPR
-   32    | exp OP_ADD exp
-   33    | exp OP_SUB exp
-   34    | exp OP_MUL exp
-   35    | exp OP_DIV exp
-   36    | exp OP_EQ exp
-   37    | exp OP_NEQ exp
-   38    | exp OP_GEQ exp
-   39    | exp OP_LEQ exp
-   40    | exp OP_GTR exp
-   41    | exp OP_LSR exp
+   28 mod: CN_ID OP_ASG exp
 
-   42 if: if_single
-   43   | if_single eif_list
-   44   | if_single eif_list else
-   45   | if_single else
+   29 exp: CN_INT
+   30    | CN_FLT
+   31    | CN_ID
+   32    | CN_STR
+   33    | SX_INP
+   34    | SX_OPR exp SX_CPR
+   35    | exp OP_ADD exp
+   36    | exp OP_SUB exp
+   37    | exp OP_MUL exp
+   38    | exp OP_DIV exp
+   39    | exp OP_EQ exp
+   40    | exp OP_NEQ exp
+   41    | exp OP_GEQ exp
+   42    | exp OP_LEQ exp
+   43    | exp OP_GTR exp
+   44    | exp OP_LSR exp
 
-   46 if_single: KW_IF exp SX_CLN program
+   45 if: if_single
+   46   | if_single eif_list
+   47   | if_single eif_list else
+   48   | if_single else
 
-   47 eif_list: KW_EIF exp SX_CLN program
-   48         | KW_EIF exp SX_CLN program eif_list
+   49 if_single: KW_IF exp SX_CLN program
 
-   49 else: KW_ELS SX_CLN program
+   50 eif_list: KW_EIF exp SX_CLN program
+   51         | KW_EIF exp SX_CLN program eif_list
 
-   50 while: KW_WHL exp SX_CLN program
+   52 else: KW_ELS SX_CLN program
 
-   51 for: KW_FOR dec asgn SX_EOS exp SX_EOS mod SX_CLN program
+   53 while: KW_WHL exp SX_CLN program
+
+   54 for: KW_FOR dec asgn SX_EOS exp SX_EOS mod SX_CLN program
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256) 3
-SX_EOS (258) 1 2 3 51
+SX_EOS (258) 1 2 3 54
 SX_PNT (259)
-SX_CLN (260) 21 46 47 48 49 50 51
-SX_CMA (261) 25
-SX_OPR (262) 22 31
-SX_CPR (263) 22 31
-SX_ARR (264)
-CN_INT (265) 27
-CN_FLT (266) 28
-CN_ID (267) 15 20 26 29
-CN_STR (268) 30
-KW_INT (269) 4
-KW_FLT (270) 5
-KW_IF (271) 46
-KW_FOR (272) 51
-KW_EIF (273) 47 48
-KW_ELS (274) 49
-KW_WHL (275) 50
-KW_STR (276) 6
-KW_FNC (277)
-KW_OUT (278) 7
-OP_EQ (279) 36
-OP_NEQ (280) 37
-OP_GEQ (281) 38
-OP_LEQ (282) 39
-OP_GTR (283) 40
-OP_LSR (284) 41
-OP_ASG (285) 18 26
-OP_ADD (286) 32
-OP_SUB (287) 33
-OP_MUL (288) 34
-OP_DIV (289) 35
+SX_CLN (260) 23 49 50 51 52 53 54
+SX_CMA (261) 27
+SX_OPR (262) 24 34
+SX_CPR (263) 24 34
+SX_INP (264) 33
+SX_OTP (265) 16
+CN_INT (266) 29
+CN_FLT (267) 30
+CN_ID (268) 17 22 28 31
+CN_STR (269) 16 32
+KW_INT (270) 4
+KW_FLT (271) 5
+KW_IF (272) 49
+KW_FOR (273) 54
+KW_EIF (274) 50 51
+KW_ELS (275) 52
+KW_WHL (276) 53
+KW_STR (277) 6
+KW_FNC (278)
+KW_OUT (279) 7
+OP_EQ (280) 39
+OP_NEQ (281) 40
+OP_GEQ (282) 41
+OP_LEQ (283) 42
+OP_GTR (284) 43
+OP_LSR (285) 44
+OP_ASG (286) 20 28
+OP_ADD (287) 35
+OP_SUB (288) 36
+OP_MUL (289) 37
+OP_DIV (290) 38
 
 
 Nonterminals, with rules where they appear
 
-$accept (35)
+$accept (36)
     on left: 0
-program (36)
-    on left: 1 2 3, on right: 0 1 3 21 46 47 48 49 50 51
-type (37)
-    on left: 4 5 6, on right: 15 20
-out (38)
+program (37)
+    on left: 1 2 3, on right: 0 1 3 23 49 50 51 52 53 54
+type (38)
+    on left: 4 5 6, on right: 17 22
+out (39)
     on left: 7, on right: 13
-stmnt (39)
-    on left: 8 9 10 11 12 13 14, on right: 1 2 3
-dec (40)
-    on left: 15, on right: 8 16 19 24 25 51
-asgn (41)
-    on left: 16 17 18, on right: 9 16 51
-func_dec (42)
-    on left: 19 20, on right: 17
-func_asgn (43)
-    on left: 21, on right: 17
-arg_dec (44)
-    on left: 22, on right: 20
-arg_list (45)
-    on left: 23 24 25, on right: 22 25
-mod (46)
-    on left: 26, on right: 10 51
-exp (47)
-    on left: 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41, on right:
-    7 18 26 31 32 33 34 35 36 37 38 39 40 41 46 47 48 50 51
-if (48)
-    on left: 42 43 44 45, on right: 11
-if_single (49)
-    on left: 46, on right: 42 43 44 45
-eif_list (50)
-    on left: 47 48, on right: 43 44 48
-else (51)
-    on left: 49, on right: 44 45
-while (52)
-    on left: 50, on right: 12
-for (53)
-    on left: 51, on right: 14
+stmnt (40)
+    on left: 8 9 10 11 12 13 14 15, on right: 1 2 3
+output (41)
+    on left: 16, on right: 15
+dec (42)
+    on left: 17, on right: 8 18 21 26 27 54
+asgn (43)
+    on left: 18 19 20, on right: 9 18 54
+func_dec (44)
+    on left: 21 22, on right: 19
+func_asgn (45)
+    on left: 23, on right: 19
+arg_dec (46)
+    on left: 24, on right: 22
+arg_list (47)
+    on left: 25 26 27, on right: 24 27
+mod (48)
+    on left: 28, on right: 10 54
+exp (49)
+    on left: 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44, on right:
+    7 20 28 34 35 36 37 38 39 40 41 42 43 44 49 50 51 53 54
+if (50)
+    on left: 45 46 47 48, on right: 11
+if_single (51)
+    on left: 49, on right: 45 46 47 48
+eif_list (52)
+    on left: 50 51, on right: 46 47 51
+else (53)
+    on left: 52, on right: 47 48
+while (54)
+    on left: 53, on right: 12
+for (55)
+    on left: 54, on right: 14
 
 
 State 0
 
     0 $accept: . program $end
 
-    CN_ID   shift, and go to state 1
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_IF   shift, and go to state 4
-    KW_FOR  shift, and go to state 5
-    KW_WHL  shift, and go to state 6
-    KW_STR  shift, and go to state 7
-    KW_OUT  shift, and go to state 8
-    OP_ASG  shift, and go to state 9
+    SX_OTP  shift, and go to state 1
+    CN_ID   shift, and go to state 2
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_IF   shift, and go to state 5
+    KW_FOR  shift, and go to state 6
+    KW_WHL  shift, and go to state 7
+    KW_STR  shift, and go to state 8
+    KW_OUT  shift, and go to state 9
+    OP_ASG  shift, and go to state 10
 
-    program    go to state 10
-    type       go to state 11
-    out        go to state 12
-    stmnt      go to state 13
-    dec        go to state 14
-    asgn       go to state 15
-    func_dec   go to state 16
-    mod        go to state 17
-    if         go to state 18
-    if_single  go to state 19
-    while      go to state 20
-    for        go to state 21
+    program    go to state 11
+    type       go to state 12
+    out        go to state 13
+    stmnt      go to state 14
+    output     go to state 15
+    dec        go to state 16
+    asgn       go to state 17
+    func_dec   go to state 18
+    mod        go to state 19
+    if         go to state 20
+    if_single  go to state 21
+    while      go to state 22
+    for        go to state 23
 
 
 State 1
 
-   26 mod: CN_ID . OP_ASG exp
+   16 output: SX_OTP . CN_STR
 
-    OP_ASG  shift, and go to state 22
+    CN_STR  shift, and go to state 24
 
 
 State 2
+
+   28 mod: CN_ID . OP_ASG exp
+
+    OP_ASG  shift, and go to state 25
+
+
+State 3
 
     4 type: KW_INT .
 
     $default  reduce using rule 4 (type)
 
 
-State 3
+State 4
 
     5 type: KW_FLT .
 
     $default  reduce using rule 5 (type)
 
 
-State 4
-
-   46 if_single: KW_IF . exp SX_CLN program
-
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
-
-    exp  go to state 28
-
-
 State 5
 
-   51 for: KW_FOR . dec asgn SX_EOS exp SX_EOS mod SX_CLN program
+   49 if_single: KW_IF . exp SX_CLN program
 
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_STR  shift, and go to state 7
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
-    type  go to state 29
-    dec   go to state 30
+    exp  go to state 32
 
 
 State 6
 
-   50 while: KW_WHL . exp SX_CLN program
+   54 for: KW_FOR . dec asgn SX_EOS exp SX_EOS mod SX_CLN program
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_STR  shift, and go to state 8
 
-    exp  go to state 31
+    type  go to state 33
+    dec   go to state 34
 
 
 State 7
+
+   53 while: KW_WHL . exp SX_CLN program
+
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
+
+    exp  go to state 35
+
+
+State 8
 
     6 type: KW_STR .
 
     $default  reduce using rule 6 (type)
 
 
-State 8
+State 9
 
     7 out: KW_OUT . exp
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
-    exp  go to state 32
-
-
-State 9
-
-   18 asgn: OP_ASG . exp
-
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
-
-    exp  go to state 33
+    exp  go to state 36
 
 
 State 10
 
-    0 $accept: program . $end
+   20 asgn: OP_ASG . exp
 
-    $end  shift, and go to state 34
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
+
+    exp  go to state 37
 
 
 State 11
 
-   15 dec: type . CN_ID
-   20 func_dec: type . arg_dec CN_ID
+    0 $accept: program . $end
 
-    SX_OPR  shift, and go to state 35
-    CN_ID   shift, and go to state 36
-
-    arg_dec  go to state 37
+    $end  shift, and go to state 38
 
 
 State 12
+
+   17 dec: type . CN_ID
+   22 func_dec: type . arg_dec CN_ID
+
+    SX_OPR  shift, and go to state 39
+    CN_ID   shift, and go to state 40
+
+    arg_dec  go to state 41
+
+
+State 13
 
    13 stmnt: out .
 
     $default  reduce using rule 13 (stmnt)
 
 
-State 13
+State 14
 
     1 program: stmnt . SX_EOS program
     2        | stmnt . SX_EOS
     3        | stmnt . error SX_EOS program
 
-    error   shift, and go to state 38
-    SX_EOS  shift, and go to state 39
-
-
-State 14
-
-    8 stmnt: dec .
-   16 asgn: dec . asgn
-   19 func_dec: dec .
-
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_STR  shift, and go to state 7
-    OP_ASG  shift, and go to state 9
-
-    SX_CLN    reduce using rule 19 (func_dec)
-    $default  reduce using rule 8 (stmnt)
-
-    type      go to state 11
-    dec       go to state 40
-    asgn      go to state 41
-    func_dec  go to state 16
+    error   shift, and go to state 42
+    SX_EOS  shift, and go to state 43
 
 
 State 15
+
+   15 stmnt: output .
+
+    $default  reduce using rule 15 (stmnt)
+
+
+State 16
+
+    8 stmnt: dec .
+   18 asgn: dec . asgn
+   21 func_dec: dec .
+
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_STR  shift, and go to state 8
+    OP_ASG  shift, and go to state 10
+
+    SX_CLN    reduce using rule 21 (func_dec)
+    $default  reduce using rule 8 (stmnt)
+
+    type      go to state 12
+    dec       go to state 44
+    asgn      go to state 45
+    func_dec  go to state 18
+
+
+State 17
 
     9 stmnt: asgn .
 
     $default  reduce using rule 9 (stmnt)
 
 
-State 16
+State 18
 
-   17 asgn: func_dec . func_asgn
+   19 asgn: func_dec . func_asgn
 
-    SX_CLN  shift, and go to state 42
+    SX_CLN  shift, and go to state 46
 
-    func_asgn  go to state 43
+    func_asgn  go to state 47
 
 
-State 17
+State 19
 
    10 stmnt: mod .
 
     $default  reduce using rule 10 (stmnt)
 
 
-State 18
+State 20
 
    11 stmnt: if .
 
     $default  reduce using rule 11 (stmnt)
 
 
-State 19
+State 21
 
-   42 if: if_single .
-   43   | if_single . eif_list
-   44   | if_single . eif_list else
-   45   | if_single . else
+   45 if: if_single .
+   46   | if_single . eif_list
+   47   | if_single . eif_list else
+   48   | if_single . else
 
-    KW_EIF  shift, and go to state 44
-    KW_ELS  shift, and go to state 45
+    KW_EIF  shift, and go to state 48
+    KW_ELS  shift, and go to state 49
 
-    $default  reduce using rule 42 (if)
+    $default  reduce using rule 45 (if)
 
-    eif_list  go to state 46
-    else      go to state 47
+    eif_list  go to state 50
+    else      go to state 51
 
 
-State 20
+State 22
 
    12 stmnt: while .
 
     $default  reduce using rule 12 (stmnt)
 
 
-State 21
+State 23
 
    14 stmnt: for .
 
     $default  reduce using rule 14 (stmnt)
 
 
-State 22
-
-   26 mod: CN_ID OP_ASG . exp
-
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
-
-    exp  go to state 48
-
-
-State 23
-
-   31 exp: SX_OPR . exp SX_CPR
-
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
-
-    exp  go to state 49
-
-
 State 24
 
-   27 exp: CN_INT .
+   16 output: SX_OTP CN_STR .
 
-    $default  reduce using rule 27 (exp)
+    $default  reduce using rule 16 (output)
 
 
 State 25
 
-   28 exp: CN_FLT .
+   28 mod: CN_ID OP_ASG . exp
 
-    $default  reduce using rule 28 (exp)
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
+
+    exp  go to state 52
 
 
 State 26
 
-   29 exp: CN_ID .
+   34 exp: SX_OPR . exp SX_CPR
 
-    $default  reduce using rule 29 (exp)
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
+
+    exp  go to state 53
 
 
 State 27
 
-   30 exp: CN_STR .
+   33 exp: SX_INP .
 
-    $default  reduce using rule 30 (exp)
+    $default  reduce using rule 33 (exp)
 
 
 State 28
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
-   46 if_single: KW_IF exp . SX_CLN program
+   29 exp: CN_INT .
 
-    SX_CLN  shift, and go to state 50
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    $default  reduce using rule 29 (exp)
 
 
 State 29
 
-   15 dec: type . CN_ID
+   30 exp: CN_FLT .
 
-    CN_ID  shift, and go to state 36
+    $default  reduce using rule 30 (exp)
 
 
 State 30
 
-   51 for: KW_FOR dec . asgn SX_EOS exp SX_EOS mod SX_CLN program
+   31 exp: CN_ID .
 
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_STR  shift, and go to state 7
-    OP_ASG  shift, and go to state 9
-
-    type      go to state 11
-    dec       go to state 40
-    asgn      go to state 61
-    func_dec  go to state 16
+    $default  reduce using rule 31 (exp)
 
 
 State 31
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
-   50 while: KW_WHL exp . SX_CLN program
+   32 exp: CN_STR .
 
-    SX_CLN  shift, and go to state 62
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    $default  reduce using rule 32 (exp)
 
 
 State 32
 
-    7 out: KW_OUT exp .
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
+   49 if_single: KW_IF exp . SX_CLN program
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
-
-    $default  reduce using rule 7 (out)
+    SX_CLN  shift, and go to state 54
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
 
 State 33
 
-   18 asgn: OP_ASG exp .
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   17 dec: type . CN_ID
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
-
-    $default  reduce using rule 18 (asgn)
+    CN_ID  shift, and go to state 40
 
 
 State 34
+
+   54 for: KW_FOR dec . asgn SX_EOS exp SX_EOS mod SX_CLN program
+
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_STR  shift, and go to state 8
+    OP_ASG  shift, and go to state 10
+
+    type      go to state 12
+    dec       go to state 44
+    asgn      go to state 65
+    func_dec  go to state 18
+
+
+State 35
+
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
+   53 while: KW_WHL exp . SX_CLN program
+
+    SX_CLN  shift, and go to state 66
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
+
+
+State 36
+
+    7 out: KW_OUT exp .
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
+
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
+
+    $default  reduce using rule 7 (out)
+
+
+State 37
+
+   20 asgn: OP_ASG exp .
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
+
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
+
+    $default  reduce using rule 20 (asgn)
+
+
+State 38
 
     0 $accept: program $end .
 
     $default  accept
 
 
-State 35
-
-   22 arg_dec: SX_OPR . arg_list SX_CPR
-
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_STR  shift, and go to state 7
-
-    $default  reduce using rule 23 (arg_list)
-
-    type      go to state 29
-    dec       go to state 63
-    arg_list  go to state 64
-
-
-State 36
-
-   15 dec: type CN_ID .
-
-    $default  reduce using rule 15 (dec)
-
-
-State 37
-
-   20 func_dec: type arg_dec . CN_ID
-
-    CN_ID  shift, and go to state 65
-
-
-State 38
-
-    3 program: stmnt error . SX_EOS program
-
-    SX_EOS  shift, and go to state 66
-
-
 State 39
 
-    1 program: stmnt SX_EOS . program
-    2        | stmnt SX_EOS .
+   24 arg_dec: SX_OPR . arg_list SX_CPR
 
-    CN_ID   shift, and go to state 1
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_IF   shift, and go to state 4
-    KW_FOR  shift, and go to state 5
-    KW_WHL  shift, and go to state 6
-    KW_STR  shift, and go to state 7
-    KW_OUT  shift, and go to state 8
-    OP_ASG  shift, and go to state 9
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_STR  shift, and go to state 8
 
-    $default  reduce using rule 2 (program)
+    $default  reduce using rule 25 (arg_list)
 
-    program    go to state 67
-    type       go to state 11
-    out        go to state 12
-    stmnt      go to state 13
-    dec        go to state 14
-    asgn       go to state 15
-    func_dec   go to state 16
-    mod        go to state 17
-    if         go to state 18
-    if_single  go to state 19
-    while      go to state 20
-    for        go to state 21
+    type      go to state 33
+    dec       go to state 67
+    arg_list  go to state 68
 
 
 State 40
 
-   16 asgn: dec . asgn
-   19 func_dec: dec .
+   17 dec: type CN_ID .
 
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_STR  shift, and go to state 7
-    OP_ASG  shift, and go to state 9
-
-    $default  reduce using rule 19 (func_dec)
-
-    type      go to state 11
-    dec       go to state 40
-    asgn      go to state 41
-    func_dec  go to state 16
+    $default  reduce using rule 17 (dec)
 
 
 State 41
 
-   16 asgn: dec asgn .
+   22 func_dec: type arg_dec . CN_ID
 
-    $default  reduce using rule 16 (asgn)
+    CN_ID  shift, and go to state 69
 
 
 State 42
 
-   21 func_asgn: SX_CLN . program
+    3 program: stmnt error . SX_EOS program
 
-    CN_ID   shift, and go to state 1
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_IF   shift, and go to state 4
-    KW_FOR  shift, and go to state 5
-    KW_WHL  shift, and go to state 6
-    KW_STR  shift, and go to state 7
-    KW_OUT  shift, and go to state 8
-    OP_ASG  shift, and go to state 9
-
-    program    go to state 68
-    type       go to state 11
-    out        go to state 12
-    stmnt      go to state 13
-    dec        go to state 14
-    asgn       go to state 15
-    func_dec   go to state 16
-    mod        go to state 17
-    if         go to state 18
-    if_single  go to state 19
-    while      go to state 20
-    for        go to state 21
+    SX_EOS  shift, and go to state 70
 
 
 State 43
 
-   17 asgn: func_dec func_asgn .
+    1 program: stmnt SX_EOS . program
+    2        | stmnt SX_EOS .
 
-    $default  reduce using rule 17 (asgn)
+    SX_OTP  shift, and go to state 1
+    CN_ID   shift, and go to state 2
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_IF   shift, and go to state 5
+    KW_FOR  shift, and go to state 6
+    KW_WHL  shift, and go to state 7
+    KW_STR  shift, and go to state 8
+    KW_OUT  shift, and go to state 9
+    OP_ASG  shift, and go to state 10
+
+    $default  reduce using rule 2 (program)
+
+    program    go to state 71
+    type       go to state 12
+    out        go to state 13
+    stmnt      go to state 14
+    output     go to state 15
+    dec        go to state 16
+    asgn       go to state 17
+    func_dec   go to state 18
+    mod        go to state 19
+    if         go to state 20
+    if_single  go to state 21
+    while      go to state 22
+    for        go to state 23
 
 
 State 44
 
-   47 eif_list: KW_EIF . exp SX_CLN program
-   48         | KW_EIF . exp SX_CLN program eif_list
+   18 asgn: dec . asgn
+   21 func_dec: dec .
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_STR  shift, and go to state 8
+    OP_ASG  shift, and go to state 10
 
-    exp  go to state 69
+    $default  reduce using rule 21 (func_dec)
+
+    type      go to state 12
+    dec       go to state 44
+    asgn      go to state 45
+    func_dec  go to state 18
 
 
 State 45
 
-   49 else: KW_ELS . SX_CLN program
+   18 asgn: dec asgn .
 
-    SX_CLN  shift, and go to state 70
+    $default  reduce using rule 18 (asgn)
 
 
 State 46
 
-   43 if: if_single eif_list .
-   44   | if_single eif_list . else
+   23 func_asgn: SX_CLN . program
 
-    KW_ELS  shift, and go to state 45
+    SX_OTP  shift, and go to state 1
+    CN_ID   shift, and go to state 2
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_IF   shift, and go to state 5
+    KW_FOR  shift, and go to state 6
+    KW_WHL  shift, and go to state 7
+    KW_STR  shift, and go to state 8
+    KW_OUT  shift, and go to state 9
+    OP_ASG  shift, and go to state 10
 
-    $default  reduce using rule 43 (if)
-
-    else  go to state 71
+    program    go to state 72
+    type       go to state 12
+    out        go to state 13
+    stmnt      go to state 14
+    output     go to state 15
+    dec        go to state 16
+    asgn       go to state 17
+    func_dec   go to state 18
+    mod        go to state 19
+    if         go to state 20
+    if_single  go to state 21
+    while      go to state 22
+    for        go to state 23
 
 
 State 47
 
-   45 if: if_single else .
+   19 asgn: func_dec func_asgn .
 
-    $default  reduce using rule 45 (if)
+    $default  reduce using rule 19 (asgn)
 
 
 State 48
 
-   26 mod: CN_ID OP_ASG exp .
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   50 eif_list: KW_EIF . exp SX_CLN program
+   51         | KW_EIF . exp SX_CLN program eif_list
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
-    $default  reduce using rule 26 (mod)
+    exp  go to state 73
 
 
 State 49
 
-   31 exp: SX_OPR exp . SX_CPR
-   32    | exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   52 else: KW_ELS . SX_CLN program
 
-    SX_CPR  shift, and go to state 72
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    SX_CLN  shift, and go to state 74
 
 
 State 50
 
-   46 if_single: KW_IF exp SX_CLN . program
+   46 if: if_single eif_list .
+   47   | if_single eif_list . else
 
-    CN_ID   shift, and go to state 1
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_IF   shift, and go to state 4
-    KW_FOR  shift, and go to state 5
-    KW_WHL  shift, and go to state 6
-    KW_STR  shift, and go to state 7
-    KW_OUT  shift, and go to state 8
-    OP_ASG  shift, and go to state 9
+    KW_ELS  shift, and go to state 49
 
-    program    go to state 73
-    type       go to state 11
-    out        go to state 12
-    stmnt      go to state 13
-    dec        go to state 14
-    asgn       go to state 15
-    func_dec   go to state 16
-    mod        go to state 17
-    if         go to state 18
-    if_single  go to state 19
-    while      go to state 20
-    for        go to state 21
+    $default  reduce using rule 46 (if)
+
+    else  go to state 75
 
 
 State 51
 
-   36 exp: exp OP_EQ . exp
+   48 if: if_single else .
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
-
-    exp  go to state 74
+    $default  reduce using rule 48 (if)
 
 
 State 52
 
-   37 exp: exp OP_NEQ . exp
+   28 mod: CN_ID OP_ASG exp .
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
-    exp  go to state 75
+    $default  reduce using rule 28 (mod)
 
 
 State 53
 
-   38 exp: exp OP_GEQ . exp
+   34 exp: SX_OPR exp . SX_CPR
+   35    | exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
-
-    exp  go to state 76
+    SX_CPR  shift, and go to state 76
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
 
 State 54
 
-   39 exp: exp OP_LEQ . exp
+   49 if_single: KW_IF exp SX_CLN . program
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    SX_OTP  shift, and go to state 1
+    CN_ID   shift, and go to state 2
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_IF   shift, and go to state 5
+    KW_FOR  shift, and go to state 6
+    KW_WHL  shift, and go to state 7
+    KW_STR  shift, and go to state 8
+    KW_OUT  shift, and go to state 9
+    OP_ASG  shift, and go to state 10
 
-    exp  go to state 77
+    program    go to state 77
+    type       go to state 12
+    out        go to state 13
+    stmnt      go to state 14
+    output     go to state 15
+    dec        go to state 16
+    asgn       go to state 17
+    func_dec   go to state 18
+    mod        go to state 19
+    if         go to state 20
+    if_single  go to state 21
+    while      go to state 22
+    for        go to state 23
 
 
 State 55
 
-   40 exp: exp OP_GTR . exp
+   39 exp: exp OP_EQ . exp
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
     exp  go to state 78
 
 
 State 56
 
-   41 exp: exp OP_LSR . exp
+   40 exp: exp OP_NEQ . exp
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
     exp  go to state 79
 
 
 State 57
 
-   32 exp: exp OP_ADD . exp
+   41 exp: exp OP_GEQ . exp
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
     exp  go to state 80
 
 
 State 58
 
-   33 exp: exp OP_SUB . exp
+   42 exp: exp OP_LEQ . exp
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
     exp  go to state 81
 
 
 State 59
 
-   34 exp: exp OP_MUL . exp
+   43 exp: exp OP_GTR . exp
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
     exp  go to state 82
 
 
 State 60
 
-   35 exp: exp OP_DIV . exp
+   44 exp: exp OP_LSR . exp
 
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
     exp  go to state 83
 
 
 State 61
 
-   51 for: KW_FOR dec asgn . SX_EOS exp SX_EOS mod SX_CLN program
+   35 exp: exp OP_ADD . exp
 
-    SX_EOS  shift, and go to state 84
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
+
+    exp  go to state 84
 
 
 State 62
 
-   50 while: KW_WHL exp SX_CLN . program
+   36 exp: exp OP_SUB . exp
 
-    CN_ID   shift, and go to state 1
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_IF   shift, and go to state 4
-    KW_FOR  shift, and go to state 5
-    KW_WHL  shift, and go to state 6
-    KW_STR  shift, and go to state 7
-    KW_OUT  shift, and go to state 8
-    OP_ASG  shift, and go to state 9
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
-    program    go to state 85
-    type       go to state 11
-    out        go to state 12
-    stmnt      go to state 13
-    dec        go to state 14
-    asgn       go to state 15
-    func_dec   go to state 16
-    mod        go to state 17
-    if         go to state 18
-    if_single  go to state 19
-    while      go to state 20
-    for        go to state 21
+    exp  go to state 85
 
 
 State 63
 
-   24 arg_list: dec .
-   25         | dec . SX_CMA arg_list
+   37 exp: exp OP_MUL . exp
 
-    SX_CMA  shift, and go to state 86
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
 
-    $default  reduce using rule 24 (arg_list)
+    exp  go to state 86
 
 
 State 64
 
-   22 arg_dec: SX_OPR arg_list . SX_CPR
+   38 exp: exp OP_DIV . exp
 
-    SX_CPR  shift, and go to state 87
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
+
+    exp  go to state 87
 
 
 State 65
 
-   20 func_dec: type arg_dec CN_ID .
+   54 for: KW_FOR dec asgn . SX_EOS exp SX_EOS mod SX_CLN program
 
-    $default  reduce using rule 20 (func_dec)
+    SX_EOS  shift, and go to state 88
 
 
 State 66
 
-    3 program: stmnt error SX_EOS . program
+   53 while: KW_WHL exp SX_CLN . program
 
-    CN_ID   shift, and go to state 1
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_IF   shift, and go to state 4
-    KW_FOR  shift, and go to state 5
-    KW_WHL  shift, and go to state 6
-    KW_STR  shift, and go to state 7
-    KW_OUT  shift, and go to state 8
-    OP_ASG  shift, and go to state 9
+    SX_OTP  shift, and go to state 1
+    CN_ID   shift, and go to state 2
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_IF   shift, and go to state 5
+    KW_FOR  shift, and go to state 6
+    KW_WHL  shift, and go to state 7
+    KW_STR  shift, and go to state 8
+    KW_OUT  shift, and go to state 9
+    OP_ASG  shift, and go to state 10
 
-    program    go to state 88
-    type       go to state 11
-    out        go to state 12
-    stmnt      go to state 13
-    dec        go to state 14
-    asgn       go to state 15
-    func_dec   go to state 16
-    mod        go to state 17
-    if         go to state 18
-    if_single  go to state 19
-    while      go to state 20
-    for        go to state 21
+    program    go to state 89
+    type       go to state 12
+    out        go to state 13
+    stmnt      go to state 14
+    output     go to state 15
+    dec        go to state 16
+    asgn       go to state 17
+    func_dec   go to state 18
+    mod        go to state 19
+    if         go to state 20
+    if_single  go to state 21
+    while      go to state 22
+    for        go to state 23
 
 
 State 67
+
+   26 arg_list: dec .
+   27         | dec . SX_CMA arg_list
+
+    SX_CMA  shift, and go to state 90
+
+    $default  reduce using rule 26 (arg_list)
+
+
+State 68
+
+   24 arg_dec: SX_OPR arg_list . SX_CPR
+
+    SX_CPR  shift, and go to state 91
+
+
+State 69
+
+   22 func_dec: type arg_dec CN_ID .
+
+    $default  reduce using rule 22 (func_dec)
+
+
+State 70
+
+    3 program: stmnt error SX_EOS . program
+
+    SX_OTP  shift, and go to state 1
+    CN_ID   shift, and go to state 2
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_IF   shift, and go to state 5
+    KW_FOR  shift, and go to state 6
+    KW_WHL  shift, and go to state 7
+    KW_STR  shift, and go to state 8
+    KW_OUT  shift, and go to state 9
+    OP_ASG  shift, and go to state 10
+
+    program    go to state 92
+    type       go to state 12
+    out        go to state 13
+    stmnt      go to state 14
+    output     go to state 15
+    dec        go to state 16
+    asgn       go to state 17
+    func_dec   go to state 18
+    mod        go to state 19
+    if         go to state 20
+    if_single  go to state 21
+    while      go to state 22
+    for        go to state 23
+
+
+State 71
 
     1 program: stmnt SX_EOS program .
 
     $default  reduce using rule 1 (program)
 
 
-State 68
-
-   21 func_asgn: SX_CLN program .
-
-    $default  reduce using rule 21 (func_asgn)
-
-
-State 69
-
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
-   47 eif_list: KW_EIF exp . SX_CLN program
-   48         | KW_EIF exp . SX_CLN program eif_list
-
-    SX_CLN  shift, and go to state 89
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
-
-
-State 70
-
-   49 else: KW_ELS SX_CLN . program
-
-    CN_ID   shift, and go to state 1
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_IF   shift, and go to state 4
-    KW_FOR  shift, and go to state 5
-    KW_WHL  shift, and go to state 6
-    KW_STR  shift, and go to state 7
-    KW_OUT  shift, and go to state 8
-    OP_ASG  shift, and go to state 9
-
-    program    go to state 90
-    type       go to state 11
-    out        go to state 12
-    stmnt      go to state 13
-    dec        go to state 14
-    asgn       go to state 15
-    func_dec   go to state 16
-    mod        go to state 17
-    if         go to state 18
-    if_single  go to state 19
-    while      go to state 20
-    for        go to state 21
-
-
-State 71
-
-   44 if: if_single eif_list else .
-
-    $default  reduce using rule 44 (if)
-
-
 State 72
 
-   31 exp: SX_OPR exp SX_CPR .
+   23 func_asgn: SX_CLN program .
 
-    $default  reduce using rule 31 (exp)
+    $default  reduce using rule 23 (func_asgn)
 
 
 State 73
 
-   46 if_single: KW_IF exp SX_CLN program .
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
+   50 eif_list: KW_EIF exp . SX_CLN program
+   51         | KW_EIF exp . SX_CLN program eif_list
 
-    $default  reduce using rule 46 (if_single)
+    SX_CLN  shift, and go to state 93
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
 
 State 74
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   36    | exp OP_EQ exp .
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   52 else: KW_ELS SX_CLN . program
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    SX_OTP  shift, and go to state 1
+    CN_ID   shift, and go to state 2
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_IF   shift, and go to state 5
+    KW_FOR  shift, and go to state 6
+    KW_WHL  shift, and go to state 7
+    KW_STR  shift, and go to state 8
+    KW_OUT  shift, and go to state 9
+    OP_ASG  shift, and go to state 10
 
-    OP_EQ     [reduce using rule 36 (exp)]
-    OP_NEQ    [reduce using rule 36 (exp)]
-    OP_GEQ    [reduce using rule 36 (exp)]
-    OP_LEQ    [reduce using rule 36 (exp)]
-    OP_GTR    [reduce using rule 36 (exp)]
-    OP_LSR    [reduce using rule 36 (exp)]
-    OP_ADD    [reduce using rule 36 (exp)]
-    OP_SUB    [reduce using rule 36 (exp)]
-    OP_MUL    [reduce using rule 36 (exp)]
-    OP_DIV    [reduce using rule 36 (exp)]
-    $default  reduce using rule 36 (exp)
+    program    go to state 94
+    type       go to state 12
+    out        go to state 13
+    stmnt      go to state 14
+    output     go to state 15
+    dec        go to state 16
+    asgn       go to state 17
+    func_dec   go to state 18
+    mod        go to state 19
+    if         go to state 20
+    if_single  go to state 21
+    while      go to state 22
+    for        go to state 23
 
 
 State 75
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   37    | exp OP_NEQ exp .
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   47 if: if_single eif_list else .
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
-
-    OP_EQ     [reduce using rule 37 (exp)]
-    OP_NEQ    [reduce using rule 37 (exp)]
-    OP_GEQ    [reduce using rule 37 (exp)]
-    OP_LEQ    [reduce using rule 37 (exp)]
-    OP_GTR    [reduce using rule 37 (exp)]
-    OP_LSR    [reduce using rule 37 (exp)]
-    OP_ADD    [reduce using rule 37 (exp)]
-    OP_SUB    [reduce using rule 37 (exp)]
-    OP_MUL    [reduce using rule 37 (exp)]
-    OP_DIV    [reduce using rule 37 (exp)]
-    $default  reduce using rule 37 (exp)
+    $default  reduce using rule 47 (if)
 
 
 State 76
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   38    | exp OP_GEQ exp .
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   34 exp: SX_OPR exp SX_CPR .
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
-
-    OP_EQ     [reduce using rule 38 (exp)]
-    OP_NEQ    [reduce using rule 38 (exp)]
-    OP_GEQ    [reduce using rule 38 (exp)]
-    OP_LEQ    [reduce using rule 38 (exp)]
-    OP_GTR    [reduce using rule 38 (exp)]
-    OP_LSR    [reduce using rule 38 (exp)]
-    OP_ADD    [reduce using rule 38 (exp)]
-    OP_SUB    [reduce using rule 38 (exp)]
-    OP_MUL    [reduce using rule 38 (exp)]
-    OP_DIV    [reduce using rule 38 (exp)]
-    $default  reduce using rule 38 (exp)
+    $default  reduce using rule 34 (exp)
 
 
 State 77
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   39    | exp OP_LEQ exp .
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   49 if_single: KW_IF exp SX_CLN program .
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    $default  reduce using rule 49 (if_single)
+
+
+State 78
+
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   39    | exp OP_EQ exp .
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
+
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
     OP_EQ     [reduce using rule 39 (exp)]
     OP_NEQ    [reduce using rule 39 (exp)]
@@ -1310,30 +1261,30 @@ State 77
     $default  reduce using rule 39 (exp)
 
 
-State 78
+State 79
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   40    | exp OP_GTR exp .
-   41    | exp . OP_LSR exp
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   40    | exp OP_NEQ exp .
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
     OP_EQ     [reduce using rule 40 (exp)]
     OP_NEQ    [reduce using rule 40 (exp)]
@@ -1348,30 +1299,30 @@ State 78
     $default  reduce using rule 40 (exp)
 
 
-State 79
+State 80
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
-   41    | exp OP_LSR exp .
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   41    | exp OP_GEQ exp .
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
     OP_EQ     [reduce using rule 41 (exp)]
     OP_NEQ    [reduce using rule 41 (exp)]
@@ -1386,144 +1337,144 @@ State 79
     $default  reduce using rule 41 (exp)
 
 
-State 80
-
-   32 exp: exp . OP_ADD exp
-   32    | exp OP_ADD exp .
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
-
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
-
-    OP_EQ     [reduce using rule 32 (exp)]
-    OP_NEQ    [reduce using rule 32 (exp)]
-    OP_GEQ    [reduce using rule 32 (exp)]
-    OP_LEQ    [reduce using rule 32 (exp)]
-    OP_GTR    [reduce using rule 32 (exp)]
-    OP_LSR    [reduce using rule 32 (exp)]
-    OP_ADD    [reduce using rule 32 (exp)]
-    OP_SUB    [reduce using rule 32 (exp)]
-    OP_MUL    [reduce using rule 32 (exp)]
-    OP_DIV    [reduce using rule 32 (exp)]
-    $default  reduce using rule 32 (exp)
-
-
 State 81
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   33    | exp OP_SUB exp .
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   42    | exp OP_LEQ exp .
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
-    OP_EQ     [reduce using rule 33 (exp)]
-    OP_NEQ    [reduce using rule 33 (exp)]
-    OP_GEQ    [reduce using rule 33 (exp)]
-    OP_LEQ    [reduce using rule 33 (exp)]
-    OP_GTR    [reduce using rule 33 (exp)]
-    OP_LSR    [reduce using rule 33 (exp)]
-    OP_ADD    [reduce using rule 33 (exp)]
-    OP_SUB    [reduce using rule 33 (exp)]
-    OP_MUL    [reduce using rule 33 (exp)]
-    OP_DIV    [reduce using rule 33 (exp)]
-    $default  reduce using rule 33 (exp)
+    OP_EQ     [reduce using rule 42 (exp)]
+    OP_NEQ    [reduce using rule 42 (exp)]
+    OP_GEQ    [reduce using rule 42 (exp)]
+    OP_LEQ    [reduce using rule 42 (exp)]
+    OP_GTR    [reduce using rule 42 (exp)]
+    OP_LSR    [reduce using rule 42 (exp)]
+    OP_ADD    [reduce using rule 42 (exp)]
+    OP_SUB    [reduce using rule 42 (exp)]
+    OP_MUL    [reduce using rule 42 (exp)]
+    OP_DIV    [reduce using rule 42 (exp)]
+    $default  reduce using rule 42 (exp)
 
 
 State 82
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   34    | exp OP_MUL exp .
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   43    | exp OP_GTR exp .
+   44    | exp . OP_LSR exp
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
-    OP_EQ     [reduce using rule 34 (exp)]
-    OP_NEQ    [reduce using rule 34 (exp)]
-    OP_GEQ    [reduce using rule 34 (exp)]
-    OP_LEQ    [reduce using rule 34 (exp)]
-    OP_GTR    [reduce using rule 34 (exp)]
-    OP_LSR    [reduce using rule 34 (exp)]
-    OP_ADD    [reduce using rule 34 (exp)]
-    OP_SUB    [reduce using rule 34 (exp)]
-    OP_MUL    [reduce using rule 34 (exp)]
-    OP_DIV    [reduce using rule 34 (exp)]
-    $default  reduce using rule 34 (exp)
+    OP_EQ     [reduce using rule 43 (exp)]
+    OP_NEQ    [reduce using rule 43 (exp)]
+    OP_GEQ    [reduce using rule 43 (exp)]
+    OP_LEQ    [reduce using rule 43 (exp)]
+    OP_GTR    [reduce using rule 43 (exp)]
+    OP_LSR    [reduce using rule 43 (exp)]
+    OP_ADD    [reduce using rule 43 (exp)]
+    OP_SUB    [reduce using rule 43 (exp)]
+    OP_MUL    [reduce using rule 43 (exp)]
+    OP_DIV    [reduce using rule 43 (exp)]
+    $default  reduce using rule 43 (exp)
 
 
 State 83
 
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   35    | exp OP_DIV exp .
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
+   44    | exp OP_LSR exp .
 
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
+
+    OP_EQ     [reduce using rule 44 (exp)]
+    OP_NEQ    [reduce using rule 44 (exp)]
+    OP_GEQ    [reduce using rule 44 (exp)]
+    OP_LEQ    [reduce using rule 44 (exp)]
+    OP_GTR    [reduce using rule 44 (exp)]
+    OP_LSR    [reduce using rule 44 (exp)]
+    OP_ADD    [reduce using rule 44 (exp)]
+    OP_SUB    [reduce using rule 44 (exp)]
+    OP_MUL    [reduce using rule 44 (exp)]
+    OP_DIV    [reduce using rule 44 (exp)]
+    $default  reduce using rule 44 (exp)
+
+
+State 84
+
+   35 exp: exp . OP_ADD exp
+   35    | exp OP_ADD exp .
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
+
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
     OP_EQ     [reduce using rule 35 (exp)]
     OP_NEQ    [reduce using rule 35 (exp)]
@@ -1538,190 +1489,309 @@ State 83
     $default  reduce using rule 35 (exp)
 
 
-State 84
-
-   51 for: KW_FOR dec asgn SX_EOS . exp SX_EOS mod SX_CLN program
-
-    SX_OPR  shift, and go to state 23
-    CN_INT  shift, and go to state 24
-    CN_FLT  shift, and go to state 25
-    CN_ID   shift, and go to state 26
-    CN_STR  shift, and go to state 27
-
-    exp  go to state 91
-
-
 State 85
 
-   50 while: KW_WHL exp SX_CLN program .
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   36    | exp OP_SUB exp .
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
 
-    $default  reduce using rule 50 (while)
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
+
+    OP_EQ     [reduce using rule 36 (exp)]
+    OP_NEQ    [reduce using rule 36 (exp)]
+    OP_GEQ    [reduce using rule 36 (exp)]
+    OP_LEQ    [reduce using rule 36 (exp)]
+    OP_GTR    [reduce using rule 36 (exp)]
+    OP_LSR    [reduce using rule 36 (exp)]
+    OP_ADD    [reduce using rule 36 (exp)]
+    OP_SUB    [reduce using rule 36 (exp)]
+    OP_MUL    [reduce using rule 36 (exp)]
+    OP_DIV    [reduce using rule 36 (exp)]
+    $default  reduce using rule 36 (exp)
 
 
 State 86
 
-   25 arg_list: dec SX_CMA . arg_list
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   37    | exp OP_MUL exp .
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
 
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_STR  shift, and go to state 7
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
-    $default  reduce using rule 23 (arg_list)
-
-    type      go to state 29
-    dec       go to state 63
-    arg_list  go to state 92
+    OP_EQ     [reduce using rule 37 (exp)]
+    OP_NEQ    [reduce using rule 37 (exp)]
+    OP_GEQ    [reduce using rule 37 (exp)]
+    OP_LEQ    [reduce using rule 37 (exp)]
+    OP_GTR    [reduce using rule 37 (exp)]
+    OP_LSR    [reduce using rule 37 (exp)]
+    OP_ADD    [reduce using rule 37 (exp)]
+    OP_SUB    [reduce using rule 37 (exp)]
+    OP_MUL    [reduce using rule 37 (exp)]
+    OP_DIV    [reduce using rule 37 (exp)]
+    $default  reduce using rule 37 (exp)
 
 
 State 87
 
-   22 arg_dec: SX_OPR arg_list SX_CPR .
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   38    | exp OP_DIV exp .
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
 
-    $default  reduce using rule 22 (arg_dec)
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
+
+    OP_EQ     [reduce using rule 38 (exp)]
+    OP_NEQ    [reduce using rule 38 (exp)]
+    OP_GEQ    [reduce using rule 38 (exp)]
+    OP_LEQ    [reduce using rule 38 (exp)]
+    OP_GTR    [reduce using rule 38 (exp)]
+    OP_LSR    [reduce using rule 38 (exp)]
+    OP_ADD    [reduce using rule 38 (exp)]
+    OP_SUB    [reduce using rule 38 (exp)]
+    OP_MUL    [reduce using rule 38 (exp)]
+    OP_DIV    [reduce using rule 38 (exp)]
+    $default  reduce using rule 38 (exp)
 
 
 State 88
+
+   54 for: KW_FOR dec asgn SX_EOS . exp SX_EOS mod SX_CLN program
+
+    SX_OPR  shift, and go to state 26
+    SX_INP  shift, and go to state 27
+    CN_INT  shift, and go to state 28
+    CN_FLT  shift, and go to state 29
+    CN_ID   shift, and go to state 30
+    CN_STR  shift, and go to state 31
+
+    exp  go to state 95
+
+
+State 89
+
+   53 while: KW_WHL exp SX_CLN program .
+
+    $default  reduce using rule 53 (while)
+
+
+State 90
+
+   27 arg_list: dec SX_CMA . arg_list
+
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_STR  shift, and go to state 8
+
+    $default  reduce using rule 25 (arg_list)
+
+    type      go to state 33
+    dec       go to state 67
+    arg_list  go to state 96
+
+
+State 91
+
+   24 arg_dec: SX_OPR arg_list SX_CPR .
+
+    $default  reduce using rule 24 (arg_dec)
+
+
+State 92
 
     3 program: stmnt error SX_EOS program .
 
     $default  reduce using rule 3 (program)
 
 
-State 89
-
-   47 eif_list: KW_EIF exp SX_CLN . program
-   48         | KW_EIF exp SX_CLN . program eif_list
-
-    CN_ID   shift, and go to state 1
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_IF   shift, and go to state 4
-    KW_FOR  shift, and go to state 5
-    KW_WHL  shift, and go to state 6
-    KW_STR  shift, and go to state 7
-    KW_OUT  shift, and go to state 8
-    OP_ASG  shift, and go to state 9
-
-    program    go to state 93
-    type       go to state 11
-    out        go to state 12
-    stmnt      go to state 13
-    dec        go to state 14
-    asgn       go to state 15
-    func_dec   go to state 16
-    mod        go to state 17
-    if         go to state 18
-    if_single  go to state 19
-    while      go to state 20
-    for        go to state 21
-
-
-State 90
-
-   49 else: KW_ELS SX_CLN program .
-
-    $default  reduce using rule 49 (else)
-
-
-State 91
-
-   32 exp: exp . OP_ADD exp
-   33    | exp . OP_SUB exp
-   34    | exp . OP_MUL exp
-   35    | exp . OP_DIV exp
-   36    | exp . OP_EQ exp
-   37    | exp . OP_NEQ exp
-   38    | exp . OP_GEQ exp
-   39    | exp . OP_LEQ exp
-   40    | exp . OP_GTR exp
-   41    | exp . OP_LSR exp
-   51 for: KW_FOR dec asgn SX_EOS exp . SX_EOS mod SX_CLN program
-
-    SX_EOS  shift, and go to state 94
-    OP_EQ   shift, and go to state 51
-    OP_NEQ  shift, and go to state 52
-    OP_GEQ  shift, and go to state 53
-    OP_LEQ  shift, and go to state 54
-    OP_GTR  shift, and go to state 55
-    OP_LSR  shift, and go to state 56
-    OP_ADD  shift, and go to state 57
-    OP_SUB  shift, and go to state 58
-    OP_MUL  shift, and go to state 59
-    OP_DIV  shift, and go to state 60
-
-
-State 92
-
-   25 arg_list: dec SX_CMA arg_list .
-
-    $default  reduce using rule 25 (arg_list)
-
-
 State 93
 
-   47 eif_list: KW_EIF exp SX_CLN program .
-   48         | KW_EIF exp SX_CLN program . eif_list
+   50 eif_list: KW_EIF exp SX_CLN . program
+   51         | KW_EIF exp SX_CLN . program eif_list
 
-    KW_EIF  shift, and go to state 44
+    SX_OTP  shift, and go to state 1
+    CN_ID   shift, and go to state 2
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_IF   shift, and go to state 5
+    KW_FOR  shift, and go to state 6
+    KW_WHL  shift, and go to state 7
+    KW_STR  shift, and go to state 8
+    KW_OUT  shift, and go to state 9
+    OP_ASG  shift, and go to state 10
 
-    $default  reduce using rule 47 (eif_list)
-
-    eif_list  go to state 95
+    program    go to state 97
+    type       go to state 12
+    out        go to state 13
+    stmnt      go to state 14
+    output     go to state 15
+    dec        go to state 16
+    asgn       go to state 17
+    func_dec   go to state 18
+    mod        go to state 19
+    if         go to state 20
+    if_single  go to state 21
+    while      go to state 22
+    for        go to state 23
 
 
 State 94
 
-   51 for: KW_FOR dec asgn SX_EOS exp SX_EOS . mod SX_CLN program
+   52 else: KW_ELS SX_CLN program .
 
-    CN_ID  shift, and go to state 1
-
-    mod  go to state 96
+    $default  reduce using rule 52 (else)
 
 
 State 95
 
-   48 eif_list: KW_EIF exp SX_CLN program eif_list .
+   35 exp: exp . OP_ADD exp
+   36    | exp . OP_SUB exp
+   37    | exp . OP_MUL exp
+   38    | exp . OP_DIV exp
+   39    | exp . OP_EQ exp
+   40    | exp . OP_NEQ exp
+   41    | exp . OP_GEQ exp
+   42    | exp . OP_LEQ exp
+   43    | exp . OP_GTR exp
+   44    | exp . OP_LSR exp
+   54 for: KW_FOR dec asgn SX_EOS exp . SX_EOS mod SX_CLN program
 
-    $default  reduce using rule 48 (eif_list)
+    SX_EOS  shift, and go to state 98
+    OP_EQ   shift, and go to state 55
+    OP_NEQ  shift, and go to state 56
+    OP_GEQ  shift, and go to state 57
+    OP_LEQ  shift, and go to state 58
+    OP_GTR  shift, and go to state 59
+    OP_LSR  shift, and go to state 60
+    OP_ADD  shift, and go to state 61
+    OP_SUB  shift, and go to state 62
+    OP_MUL  shift, and go to state 63
+    OP_DIV  shift, and go to state 64
 
 
 State 96
 
-   51 for: KW_FOR dec asgn SX_EOS exp SX_EOS mod . SX_CLN program
+   27 arg_list: dec SX_CMA arg_list .
 
-    SX_CLN  shift, and go to state 97
+    $default  reduce using rule 27 (arg_list)
 
 
 State 97
 
-   51 for: KW_FOR dec asgn SX_EOS exp SX_EOS mod SX_CLN . program
+   50 eif_list: KW_EIF exp SX_CLN program .
+   51         | KW_EIF exp SX_CLN program . eif_list
 
-    CN_ID   shift, and go to state 1
-    KW_INT  shift, and go to state 2
-    KW_FLT  shift, and go to state 3
-    KW_IF   shift, and go to state 4
-    KW_FOR  shift, and go to state 5
-    KW_WHL  shift, and go to state 6
-    KW_STR  shift, and go to state 7
-    KW_OUT  shift, and go to state 8
-    OP_ASG  shift, and go to state 9
+    KW_EIF  shift, and go to state 48
 
-    program    go to state 98
-    type       go to state 11
-    out        go to state 12
-    stmnt      go to state 13
-    dec        go to state 14
-    asgn       go to state 15
-    func_dec   go to state 16
-    mod        go to state 17
-    if         go to state 18
-    if_single  go to state 19
-    while      go to state 20
-    for        go to state 21
+    $default  reduce using rule 50 (eif_list)
+
+    eif_list  go to state 99
 
 
 State 98
 
-   51 for: KW_FOR dec asgn SX_EOS exp SX_EOS mod SX_CLN program .
+   54 for: KW_FOR dec asgn SX_EOS exp SX_EOS . mod SX_CLN program
 
-    $default  reduce using rule 51 (for)
+    CN_ID  shift, and go to state 2
+
+    mod  go to state 100
+
+
+State 99
+
+   51 eif_list: KW_EIF exp SX_CLN program eif_list .
+
+    $default  reduce using rule 51 (eif_list)
+
+
+State 100
+
+   54 for: KW_FOR dec asgn SX_EOS exp SX_EOS mod . SX_CLN program
+
+    SX_CLN  shift, and go to state 101
+
+
+State 101
+
+   54 for: KW_FOR dec asgn SX_EOS exp SX_EOS mod SX_CLN . program
+
+    SX_OTP  shift, and go to state 1
+    CN_ID   shift, and go to state 2
+    KW_INT  shift, and go to state 3
+    KW_FLT  shift, and go to state 4
+    KW_IF   shift, and go to state 5
+    KW_FOR  shift, and go to state 6
+    KW_WHL  shift, and go to state 7
+    KW_STR  shift, and go to state 8
+    KW_OUT  shift, and go to state 9
+    OP_ASG  shift, and go to state 10
+
+    program    go to state 102
+    type       go to state 12
+    out        go to state 13
+    stmnt      go to state 14
+    output     go to state 15
+    dec        go to state 16
+    asgn       go to state 17
+    func_dec   go to state 18
+    mod        go to state 19
+    if         go to state 20
+    if_single  go to state 21
+    while      go to state 22
+    for        go to state 23
+
+
+State 102
+
+   54 for: KW_FOR dec asgn SX_EOS exp SX_EOS mod SX_CLN program .
+
+    $default  reduce using rule 54 (for)

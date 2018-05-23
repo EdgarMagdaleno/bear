@@ -93,12 +93,11 @@ stmnt
 	| while
 	| out
 	| for
-	| input
 	| output
 	;
 
-input
-	:	SX_INP CN_STR
+output
+	:	SX_OTP CN_STR
 	;
 
 dec
@@ -142,7 +141,7 @@ exp
 	| CN_FLT
 	| CN_ID
 	| CN_STR
-	| SX_OTP
+	| SX_INP
 	| SX_OPR exp SX_CPR
 	| exp OP_ADD exp
 	| exp OP_SUB exp
